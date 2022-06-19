@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>FakeCSV - Login</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block base_content %}
+    <form method="post" id="login_form">
+        <h1 id="login_title">Login</h1>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary float-right">Login</button>
+    </form>
+{% endblock %}
+

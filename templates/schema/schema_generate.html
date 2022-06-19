@@ -1,0 +1,62 @@
+{% extends 'base_navigated.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/schema_generate.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>FakeCSV - Schema generate</title>
+{% endblock %}
+
+{% block top %}
+    <div id="schema_top">
+        <h3>Data sets</h3>
+        <div id="form_block">
+            <form method="POST" id="generate_form">
+                {% csrf_token %}
+                <label>{{ form.rows.label }}:</label>
+                {{ form.rows }}
+                <button class="btn btn-success" type="submit">Generate data</button>
+            </form>
+            {{ form.rows.errors }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 10%">#</th>
+                <th scope="col" style="width: 30%">Created</th>
+                <th scope="col" style="width: 30%">Status</th>
+                <th scope="col" style="width: 30%">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for dataset in data_sets %}
+                <tr>
+                    <th scope="row">{{ dataset.pk }}</th>
+                    <td>{{ dataset.created |date:"Y-m-d" }}</td>
+                    <td>
+                        {% if dataset.status == 'P' %}
+                            <p class="dataset_processing">Processing</p>
+                        {% elif dataset.status == 'R' %}
+                            <p class="dataset_ready">Ready</p>
+                        {% else %}
+                            <p class="dataset_failed">Failed</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if dataset.status == 'R' %}
+                            <a class="btn edit" href="{% url 'download-csv' dataset.pk %}">Download file</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

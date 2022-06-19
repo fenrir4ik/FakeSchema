@@ -1,0 +1,68 @@
+#schema_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.column_form {
+    display: flex;
+    flex-direction: row;
+}
+
+.column_field {
+    display: flex;
+    flex-direction: column;
+}
+
+.column_range {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 230px;
+}
+
+.range_widget {
+    max-width: 100px;
+}
+
+.column_name {
+    min-width: 350px;
+}
+
+.column_type {
+    min-width: 270px;
+}
+
+.column_order {
+    max-width: 230px;
+    min-width: 150px;
+}
+
+.delete_btn {
+    color: red !important;
+    background-color: white;
+    margin-top: 30px;
+}
+
+.main_schema {
+    max-width: 540px;
+}
+
+.errorlist{
+    list-style: none !important;
+    padding: 0;
+    color: red;
+}
+
+.range_widget {
+    display: none;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
+}

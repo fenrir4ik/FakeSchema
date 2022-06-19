@@ -1,0 +1,48 @@
+{% extends 'base_navigated.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/schema_list.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>FakeCSV - Schemas</title>
+{% endblock %}
+
+{% block top %}
+    <div id="schema_top">
+        <h3>Data schemas</h3>
+        <a class="btn btn-success" href="{% url 'schema-create' %}">New schema</a>
+    </div>
+{% endblock %}
+
+{% block bottom %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 10%">#</th>
+                <th scope="col" style="width: 30%">Title</th>
+                <th scope="col" style="width: 30%">Modified</th>
+                <th scope="col" style="width: 30%">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for schema in schema_list %}
+                <tr>
+                    <th scope="row">{{ schema.pk }}</th>
+                    <td><a href="{% url 'schema-generate' schema.pk %}">{{ schema.name }}</a></td>
+                    <td>{{ schema.modified |date:"Y-m-d" }}</td>
+                    <td class="list_buttons">
+                        <a class="btn edit" href="{% url 'schema-update' schema.pk %}">Edit scheme</a>
+                        <form method="post" action="{% url 'schema-delete' schema.pk %}">
+                            {% csrf_token %}
+                            <button class="btn delete" href="#">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

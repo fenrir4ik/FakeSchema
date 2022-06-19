@@ -1,0 +1,22 @@
+#schema_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.edit,
+.edit:hover {
+    color: dodgerblue;
+    margin-right: 20px;
+}
+
+.delete,
+.delete:hover {
+    color: red;
+    background-color: white;
+}
+
+.list_buttons {
+    display: flex;
+    flex-direction: row;
+}

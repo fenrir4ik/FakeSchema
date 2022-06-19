@@ -1,0 +1,53 @@
+.dataset_ready {
+    color: white;
+    background-color: seagreen;
+    width: 70px;
+    border-radius: 5px;
+}
+
+.dataset_failed {
+    color: white;
+    background-color: red;
+    width: 70px;
+    border-radius: 5px;
+}
+
+.dataset_processing {
+    color: white;
+    background-color: darkgrey;
+    width: 100px;
+    border-radius: 5px;
+}
+
+.dataset_processing, .dataset_ready, .dataset_failed {
+    text-align: center;
+    margin: 0;
+    font-weight: bolder;
+    height: 25px;
+    line-height: 23px;
+}
+
+#generate_form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#generate_form input {
+    max-width: 100px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#schema_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#form_block .errorlist {
+    list-style: none;
+    padding: 0;
+    color: red;
+}

@@ -1,0 +1,78 @@
+{% extends 'base_navigated.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/schema_form.css' %}">
+{% endblock %}
+
+{% block bottom %}
+    <form method="post" id="schema_form">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group main_schema">
+                <label>{{ field.label }}</label>
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        {{ form.column_formset.management_form }}
+        <div class="table-responsive">
+            <h3>Schema columns</h3>
+            <table class="table table-borderless">
+                <tbody id="formset_table_body">
+                {% for subform in form.column_formset %}
+                    <tr class="form-group column_form">
+                        {% if subform.id %}
+                            {{ subform.id }}
+                        {% endif %}
+                        <td class="column_field column_name">
+                            <label>{{ subform.name.label }}</label>
+                            {{ subform.name }}
+                            {{ subform.name.errors }}
+                        </td>
+                        <td class="column_field column_type">
+                            <label>{{ subform.type.label }}</label>
+                            {{ subform.type }}
+                            {{ subform.type.errors }}
+                        </td>
+                        <td class="column_range">
+                            <div class="column_field range_widget">
+                                <label>{{ subform.range_start.label }}</label>
+                                {{ subform.range_start }}
+                                {{ subform.range_start.errors }}
+                            </div>
+                            <div class="column_field range_widget">
+                                <label>{{ subform.range_end.label }}</label>
+                                {{ subform.range_end }}
+                                {{ subform.range_end.errors }}
+                            </div>
+                        </td>
+                        <td class="column_field column_order">
+                            <label>{{ subform.order.label }}</label>
+                            {{ subform.order }}
+                            {{ subform.order.errors }}
+                        </td>
+                        <td class="delete_button_td">
+                            <a class="btn delete_btn" onclick="deleteSchemaColumn(this)">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <button id="schema_btn" class="btn btn-primary" type="button" onclick="addSchemaColumnForm()">Add column
+        </button>
+    </form>
+{% endblock %}
+
+{% block js %}
+    <script>
+        var dataTypes = [{% for type in form.column_formset.0.type.field.queryset.all.order_by %}
+            {
+                "id": "{{ type.id }}",
+                "ranged": "{{ type.ranged }}",
+            },
+        {% endfor %}];
+    </script>
+    <script src="{% static 'js/schema_form.js' %}"></script>
+{% endblock %}
